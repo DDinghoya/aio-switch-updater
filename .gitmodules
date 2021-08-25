@@ -4,6 +4,6 @@
 [submodule "lib/borealis"]
 	path = lib/borealis
 	url = https://github.com/HamletDuFromage/borealis
-[submodule "aiosu-rcm"]
-	path = aiosu-rcm
-	url = https://github.com/HamletDuFromage/aiosu-rcm
+[submodule "payload"]
+	path = payload
+	url = https://github.com/rashevskyv/TegraExplorer
