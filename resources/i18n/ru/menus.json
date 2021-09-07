@@ -95,7 +95,7 @@
   "main": {
     "getting": "Загрузка ",
     "firmware_text": "\ue016  Дамп прошивки взят с 'https://darthsternie.net/switch-firmwares/'. После загрузки, прошивка будет распакована в папку '/firmware'. Распакованную прошивку можно установить с помощью Daybreak.\n\n\ue016  Текущая версия прошивки: ",
-    "cheats_text": "\uE016  Загрузка обновлений читов с сайта 'gbatemp.net'. Читы для игр, которые у вас не установлены не будут распаковываться на карту памяти. Вы можете отключить обновления читов для определённых игр через меню 'Инструменты -> Управление читами'.\n\uE016  Для акивации читов, удерживайте кнопку (L) во время запуска игры!\n\n\uE016  Текущая версия читов: ",
+    "cheats_text": "\uE016  Загрузка обновлений читов с сайта 'gbatemp.net'. Читы для игр, которые у вас не установлены не будут распаковываться на карту памяти. Вы можете отключить обновления читов для определённых игр через меню 'Инструменты -> Управление читами'.\n\uE016  Для активации читов, удерживайте кнопку (L) во время запуска игры!\n\n\uE016  Текущая версия читов: ",
     "get_cheats": "Скачать архив читов с сайта GBAtemp.net (v",
     "sigpatches": "sigpatches",
     "sigpatches_text": "\ue016  Sigpatches allow your Switch to install and run unofficial NSP file. Make sure you pick the correct sigpatches for your setup (pure Atmosph\u00e8re or Hekate+Atmosph\u00e8re). Reboot the console to apply patches.",
