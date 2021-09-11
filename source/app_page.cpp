@@ -237,15 +237,15 @@ void AppPage_Exclude::PopulatePage()
                 items.insert(std::make_pair(listItem, util::formatApplicationId(tid)));
                 list->addView(listItem);
 
-                free(controlData);
             }
-            delete[] records;
+            free(controlData);
         }
     }
     else {
         label = new brls::Label(brls::LabelStyle::SMALL, "menus/common/applet_mode_not_supported"_i18n, true);
         list->addView(label);
     }
+    delete[] records;
 
     list->registerAction("menus/cheats/exclude_titles_save"_i18n, brls::Key::B, [this] { 
         std::set<std::string> exclude;
