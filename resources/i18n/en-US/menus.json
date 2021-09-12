@@ -186,6 +186,9 @@
     "custom_packs_label": "Here are packs listed in the {} file. Be aware that those are not endorsed by aio-switch-updater so make sure you trust their source.",
     "update_atm_and_deepsea": "Update Atmosph\u00e8re and DeepSea"
   },
+  "firmware": {
+    "launch_daybreak": "Do you want to launch Daybreak to install the downloaded sysupdate?"
+  },
   "net": {
     "title": "Internet settings"
   },
