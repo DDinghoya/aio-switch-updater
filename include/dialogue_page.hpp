@@ -2,6 +2,7 @@
 
 #include <borealis.hpp>
 #include <chrono>
+#include <iostream>
 
 class DialoguePage : public brls::View
 {

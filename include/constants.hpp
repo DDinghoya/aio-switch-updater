@@ -98,6 +98,8 @@ constexpr const char FORWARDER_PATH[] =     "/config/kefir-updater/aiosu-forward
 
 constexpr const char HIDDEN_AIO_FILE[] =    "/config/kefir-updater/.kefir-updater";
 
+constexpr const char DAYBREAK_PATH[] = "/switch/daybreak.nro";
+
 constexpr const int LISTITEM_HEIGHT =       50;
 
 
