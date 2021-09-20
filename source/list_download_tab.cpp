@@ -101,12 +101,6 @@ ListDownloadTab::ListDownloadTab(const archiveType type) :
                 switch(type){
                     case archiveType::fw: {
                         std::string contentsPath = util::getContentsPath();
-                        for (const auto& tid : {"0100000000001000", "0100000000001007", "0100000000001013"}) {
-                            if(std::filesystem::exists(contentsPath + tid) && !std::filesystem::is_empty(contentsPath + tid)) {
-                                doneMsg += "\n" + "menus/main/theme_warning"_i18n;
-                                break;
-                            }
-                        }
                         if (std::filesystem::exists(DAYBREAK_PATH)) {
                             stagedFrame->addStage(new DialoguePage_fw(stagedFrame, doneMsg));
                         }
