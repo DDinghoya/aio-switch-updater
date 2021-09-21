@@ -6,6 +6,7 @@
 
 namespace fs
 {
+    bool removeDir(const std::string& path);
     int removeDir(const char* path);
     nlohmann::ordered_json parseJsonFile(const std::string& path);
     void writeJsonToFile(nlohmann::json &data, const std::string& path);
