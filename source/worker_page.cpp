@@ -2,6 +2,7 @@
 #include "utils.hpp"
 #include "download.hpp"
 #include "extract.hpp"
+#include "main_frame.hpp"
 #include "constants.hpp"
 #include "progress_event.hpp"
 #include <string>
@@ -22,7 +23,10 @@ WorkerPage::WorkerPage(brls::StagedAppletFrame* frame, const std::string& text, 
     this->button = new brls::Button(brls::ButtonStyle::REGULAR);
     this->button->setParent(this);
 
-    this->registerAction("", brls::Key::B, [this] { return true; });
+     this->registerAction("menus/common/cancel"_i18n, brls::Key::B, [this] {
+        ProgressEvent::instance().setInterupt(true);
+        return true;
+    });
     this->registerAction("", brls::Key::A, [this] { return true; });
 }
 
@@ -45,6 +49,9 @@ void WorkerPage::draw(NVGcontext* vg, int x, int y, unsigned width, unsigned hei
                 this->draw_page = false;
                 brls::Application::crash(fmt::format("menus/errors/error_message"_i18n, util::getErrorMessage(ProgressEvent::instance().getStatusCode())));
             } 
+            if (ProgressEvent::instance().getInterupt()) {
+                brls::Application::pushView(new MainFrame());
+            }
             else{
                 ProgressEvent::instance().setStatusCode(0);
                 frame->nextStage();
@@ -56,7 +63,6 @@ void WorkerPage::draw(NVGcontext* vg, int x, int y, unsigned width, unsigned hei
             this->progressDisp->frame(ctx);
             if(ProgressEvent::instance().getTotal()) {
                 this->label->setText(fmt::format("{0} ({1:.1f} MB of {2:.1f} MB - {3:.1f} MB/s)", text, ProgressEvent::instance().getNow() / 0x100000, ProgressEvent::instance().getTotal() / 0x100000, ProgressEvent::instance().getSpeed() / 0x100000));
-                //this->label->setText(fmt::format("{0} ({1:.1f}MB of {2:.1f}MB - MB/s)", text, ProgressEvent::instance().getNow() / 0x100000, ProgressEvent::instance().getTotal() / 0x100000));
             }
             this->label->frame(ctx);
         }

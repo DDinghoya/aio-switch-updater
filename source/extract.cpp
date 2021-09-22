@@ -47,7 +47,6 @@ namespace extract
                     brls::Application::quit();
                 }
             }
-            ProgressEvent::instance().reset();
             ProgressEvent::instance().setStep(1);
             ProgressEvent::instance().setTotalSteps(entries.size() + 1);
         }
@@ -57,18 +56,18 @@ namespace extract
     {
         zipper::Unzipper unzipper(filename);
         std::vector<zipper::ZipEntry> entries;
+
         preWork(unzipper, workingPath, entries);
         std::set<std::string> ignoreList = fs::readLineByLine(FILES_IGNORE);
-        for (const auto &entry : entries)
-        {
-            if ((overwriteInis == 0 && entry.name.substr(entry.name.length() - 4) == ".ini") || find_if(ignoreList.begin(), ignoreList.end(), [&entry](std::string ignored)
-                                                                                                        {
-                                                                                                            u8 res = ("/" + entry.name).find(ignored);
-                                                                                                            return (res == 0 || res == 1);
-                                                                                                        }) != ignoreList.end())
-            {
-                if (!std::filesystem::exists("/" + entry.name))
-                {
+
+        for (const auto& entry : entries) {
+            if (ProgressEvent::instance().getInterupt()) {
+                break;
+            }
+            if ((overwriteInis == 0 && entry.name.substr(entry.name.length() - 4) == ".ini") || find_if(ignoreList.begin(), ignoreList.end(), [&entry](std::string ignored) {
+                                                            u8 res = ("/" + entry.name).find(ignored);
+                                                            return (res == 0 || res == 1); }) != ignoreList.end()) {
+                if (!std::filesystem::exists("/" + entry.name)) {
                     unzipper.extractEntry(entry.name);
                 }
             }
@@ -95,18 +94,18 @@ namespace extract
         zipper::Unzipper unzipper(filename);
         std::vector<zipper::ZipEntry> entries;
         preWork(unzipper, workingPath, entries);
+
         std::set<std::string> ignoreList = fs::readLineByLine(FILES_IGNORE);
         ignoreList.insert(toExclude);
-        for (const auto &entry : entries)
-        {
-            if (find_if(ignoreList.begin(), ignoreList.end(), [&entry](std::string ignored)
-                        {
-                            u8 res = ("/" + entry.name).find(ignored);
-                            return (res == 0 || res == 1);
-                        }) != ignoreList.end())
-            {
-                if (!std::filesystem::exists("/" + entry.name))
-                {
+
+        for (const auto& entry : entries) {
+            if (ProgressEvent::instance().getInterupt()) {
+                break;
+            }
+            if (find_if(ignoreList.begin(), ignoreList.end(), [&entry](std::string ignored) {
+                                                            u8 res = ("/" + entry.name).find(ignored);
+                                                            return (res == 0 || res == 1); }) != ignoreList.end()) {
+                if (!std::filesystem::exists("/" + entry.name)) {
                     unzipper.extractEntry(entry.name);
                 }
             }
@@ -194,10 +193,8 @@ namespace extract
 
     void extractCheats(const std::string &zipPath, std::vector<std::string> titles, CFW cfw, bool credits)
     {
-        ProgressEvent::instance().reset();
         zipper::Unzipper unzipper(zipPath);
         std::vector<zipper::ZipEntry> entries = unzipper.entries();
-        //std::set<std::string> extractedTitles;
         int offset = 0;
         switch (cfw)
         {
@@ -268,12 +265,12 @@ namespace extract
         size_t lastL = 0;
         std::string id;
         ProgressEvent::instance().setTotalSteps(titles.size());
-        for (size_t j = 0; j < titles.size(); j++)
-        {
-            for (size_t l = lastL; l < parents.size(); l++)
-            {
-                if (strcasecmp((titles[j]).c_str(), parents[l].substr(offset, 16).c_str()) == 0)
-                {
+        for (size_t j = 0; j < titles.size(); j++) {
+            if (ProgressEvent::instance().getInterupt()) {
+                break;
+            }
+            for (size_t l = lastL; l < parents.size(); l++) {
+                if (strcasecmp((titles[j]).c_str(), parents[l].substr(offset, 16).c_str()) == 0) {
                     unzipper.extractEntry(parents[l]);
                     for (auto &e : children[l])
                     {
@@ -296,10 +293,9 @@ namespace extract
 
     void extractAllCheats(const std::string &zipPath, CFW cfw)
     {
-        ProgressEvent::instance().reset();
         zipper::Unzipper unzipper(zipPath);
         std::vector<zipper::ZipEntry> entries = unzipper.entries();
-        //std::set<std::string> extractedTitles;
+
         int offset = 0;
         switch (cfw)
         {
@@ -323,10 +319,11 @@ namespace extract
             break;
         }
         ProgressEvent::instance().setTotalSteps(entries.size());
-        for (const auto &entry : entries)
-        {
-            if (((int)entry.name.size() == offset + 16 + 4) && (isBID(entry.name.substr(offset, 16))))
-            {
+        for (const auto& entry : entries) {
+            if (ProgressEvent::instance().getInterupt()) {
+                break;
+            }
+            if (((int)entry.name.size() == offset + 16 + 4) && (isBID(entry.name.substr(offset, 16)))) {
                 //extractedTitles.insert(util::upperCase(entry.name.substr(offset - 24, 16)));
                 unzipper.extractEntry(entry.name);
             }
@@ -367,7 +364,6 @@ namespace extract
     void removeCheats()
     {
         std::string path = util::getContentsPath();
-        ProgressEvent::instance().reset();
         ProgressEvent::instance().setTotalSteps(std::distance(std::filesystem::directory_iterator(path), std::filesystem::directory_iterator()));
          for (const auto& entry : std::filesystem::directory_iterator(path)) {
             removeCheatsDirectory(entry.path().string());

@@ -42,6 +42,9 @@ namespace download {
 
         static size_t WriteMemoryCallback(void *contents, size_t size, size_t num_files, void *userp)
         {
+            if (ProgressEvent::instance().getInterupt()) {
+                return 0;
+            }
             ntwrk_struct_t *data_struct = (ntwrk_struct_t *)userp;
             size_t realsize = size * num_files;
 
