@@ -63,14 +63,20 @@ namespace extract
         preWork(unzipper, workingPath, entries);
         std::set<std::string> ignoreList = fs::readLineByLine(FILES_IGNORE);
 
-        for (const auto& entry : entries) {
-            if (ProgressEvent::instance().getInterupt()) {
+        for (const auto &entry : entries)
+        {
+            if (ProgressEvent::instance().getInterupt())
+            {
                 break;
             }
-            if ((overwriteInis == 0 && entry.name.substr(entry.name.length() - 4) == ".ini") || find_if(ignoreList.begin(), ignoreList.end(), [&entry](std::string ignored) {
-                                                            u8 res = ("/" + entry.name).find(ignored);
-                                                            return (res == 0 || res == 1); }) != ignoreList.end()) {
-                if (!std::filesystem::exists("/" + entry.name)) {
+            if ((overwriteInis == 0 && entry.name.substr(entry.name.length() - 4) == ".ini") || find_if(ignoreList.begin(), ignoreList.end(), [&entry](std::string ignored)
+                                                                                                        {
+                                                                                                            u8 res = ("/" + entry.name).find(ignored);
+                                                                                                            return (res == 0 || res == 1);
+                                                                                                        }) != ignoreList.end())
+            {
+                if (!std::filesystem::exists("/" + entry.name))
+                {
                     unzipper.extractEntry(entry.name);
                 }
             }
@@ -101,14 +107,20 @@ namespace extract
         std::set<std::string> ignoreList = fs::readLineByLine(FILES_IGNORE);
         ignoreList.insert(toExclude);
 
-        for (const auto& entry : entries) {
-            if (ProgressEvent::instance().getInterupt()) {
+        for (const auto &entry : entries)
+        {
+            if (ProgressEvent::instance().getInterupt())
+            {
                 break;
             }
-            if (find_if(ignoreList.begin(), ignoreList.end(), [&entry](std::string ignored) {
-                                                            u8 res = ("/" + entry.name).find(ignored);
-                                                            return (res == 0 || res == 1); }) != ignoreList.end()) {
-                if (!std::filesystem::exists("/" + entry.name)) {
+            if (find_if(ignoreList.begin(), ignoreList.end(), [&entry](std::string ignored)
+                        {
+                            u8 res = ("/" + entry.name).find(ignored);
+                            return (res == 0 || res == 1);
+                        }) != ignoreList.end())
+            {
+                if (!std::filesystem::exists("/" + entry.name))
+                {
                     unzipper.extractEntry(entry.name);
                 }
             }
@@ -196,44 +208,47 @@ namespace extract
 
     int computeOffset(CFW cfw)
     {
-        switch (cfw) {
-            case CFW::ams:
-                std::filesystem::create_directory(AMS_PATH);
-                std::filesystem::create_directory(AMS_CONTENTS);
-                chdir(AMS_PATH);
-                return std::string(CONTENTS_PATH).length();
-                break;
-            case CFW::rnx:
-                std::filesystem::create_directory(REINX_PATH);
-                std::filesystem::create_directory(REINX_CONTENTS);
-                chdir(REINX_PATH);
-                return std::string(CONTENTS_PATH).length();
-                break;
-            case CFW::sxos:
-                std::filesystem::create_directory(SXOS_PATH);
-                std::filesystem::create_directory(SXOS_TITLES);
-                chdir(SXOS_PATH);
-                return std::string(TITLES_PATH).length();
-                break;
+        switch (cfw)
+        {
+        case CFW::ams:
+            std::filesystem::create_directory(AMS_PATH);
+            std::filesystem::create_directory(AMS_CONTENTS);
+            chdir(AMS_PATH);
+            return std::string(CONTENTS_PATH).length();
+            break;
+        case CFW::rnx:
+            std::filesystem::create_directory(REINX_PATH);
+            std::filesystem::create_directory(REINX_CONTENTS);
+            chdir(REINX_PATH);
+            return std::string(CONTENTS_PATH).length();
+            break;
+        case CFW::sxos:
+            std::filesystem::create_directory(SXOS_PATH);
+            std::filesystem::create_directory(SXOS_TITLES);
+            chdir(SXOS_PATH);
+            return std::string(TITLES_PATH).length();
+            break;
         }
         return 0;
     }
 
-    void extractCheats(const std::string& zipPath, std::vector<std::string> titles, CFW cfw, bool credits)
+    void extractCheats(const std::string &zipPath, std::vector<std::string> titles, CFW cfw, bool credits)
     {
         zipper::Unzipper unzipper(zipPath);
         std::vector<zipper::ZipEntry> entries = unzipper.entries();
         int offset = computeOffset(cfw);
 
         ProgressEvent::instance().setTotalSteps(titles.size() + 1);
-        for (const auto& title : titles) {
-            if (ProgressEvent::instance().getInterupt()) {
+        for (const auto &title : titles)
+        {
+            if (ProgressEvent::instance().getInterupt())
+            {
                 break;
             }
-            auto matches = entries | std::views::filter([&title, offset](zipper::ZipEntry entry) {
-                               return strcasecmp((title.substr(0, 13)).c_str(), entry.name.substr(offset, 13).c_str()) == 0 && strcasecmp(entry.name.substr(offset + 16, 7).c_str(), "/cheats") == 0;
-                           });
-            for (const auto& match : matches) {
+            auto matches = entries | std::views::filter([&title, offset](zipper::ZipEntry entry)
+                                                        { return strcasecmp((title.substr(0, 13)).c_str(), entry.name.substr(offset, 13).c_str()) == 0 && strcasecmp(entry.name.substr(offset + 16, 7).c_str(), "/cheats") == 0; });
+            for (const auto &match : matches)
+            {
                 unzipper.extractEntry(match.name);
                 ProgressEvent::instance().incrementStep(1);
             }
@@ -250,11 +265,14 @@ namespace extract
         int offset = computeOffset(cfw);
 
         ProgressEvent::instance().setTotalSteps(entries.size() + 1);
-        for (const auto& entry : entries) {
-            if (ProgressEvent::instance().getInterupt()) {
+        for (const auto &entry : entries)
+        {
+            if (ProgressEvent::instance().getInterupt())
+            {
                 break;
             }
-            if (((int)entry.name.size() == offset + 16 + 4) && (isBID(entry.name.substr(offset, 16)))) {
+            if (((int)entry.name.size() == offset + 16 + 4) && (isBID(entry.name.substr(offset, 16))))
+            {
                 unzipper.extractEntry(entry.name);
             }
             ProgressEvent::instance().incrementStep(1);
@@ -294,7 +312,12 @@ namespace extract
     {
         std::string path = util::getContentsPath();
         ProgressEvent::instance().setTotalSteps(std::distance(std::filesystem::directory_iterator(path), std::filesystem::directory_iterator()));
-         for (const auto& entry : std::filesystem::directory_iterator(path)) {
+        for (const auto &entry : std::filesystem::directory_iterator(path))
+        {
+            if (ProgressEvent::instance().getInterupt())
+            {
+                break;
+            }
             removeCheatsDirectory(entry.path().string());
             ProgressEvent::instance().incrementStep(1);
         }

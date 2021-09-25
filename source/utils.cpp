@@ -145,17 +145,10 @@ namespace util
             break;
         }
         case archiveType::fw:
-            if (std::filesystem::file_size(FIRMWARE_FILENAME) < 200000)
-            {
-                brls::Application::crash("menus/utils/wrong_type_sigpatches_downloaded"_i18n);
-            }
-            else
-            {
-                if (std::filesystem::exists(FIRMWARE_PATH))
-                    std::filesystem::remove_all(FIRMWARE_PATH);
-                fs::createTree(FIRMWARE_PATH);
-                extract::extract(FIRMWARE_FILENAME, FIRMWARE_PATH);
-            }
+            if (std::filesystem::exists(FIRMWARE_PATH))
+                std::filesystem::remove_all(FIRMWARE_PATH);
+            fs::createTree(FIRMWARE_PATH);
+            extract::extract(FIRMWARE_FILENAME, FIRMWARE_PATH);
             break;
         case archiveType::app:
             extract::extract(APP_FILENAME, CONFIG_PATH);
@@ -176,7 +169,8 @@ namespace util
                 fs::copyFile("/kefir/bootloader/hekate_ipl.ini", "/bootloader/hekate_ipl.ini");
                 fs::copyFile("/kefir/config/kefir-updater/kefir_updater.ini", "/bootloader/ini/!kefir_updater.ini");
                 fs::copyFile("/kefir/bootloader/res/ku.bmp", "/bootloader/res/ku.bmp");
-                if (std::filesystem::exists(CFW_FILENAME)) {
+                if (std::filesystem::exists(CFW_FILENAME))
+                {
                     std::filesystem::remove_all(CFW_FILENAME);
                 }
             }
@@ -194,7 +188,8 @@ namespace util
                 fs::copyFile("/kefir/bootloader/hekate_ipl.ini", "/bootloader/hekate_ipl.ini");
                 fs::copyFile("/kefir/config/kefir-updater/kefir_updater.ini", "/bootloader/ini/!kefir_updater.ini");
                 fs::copyFile("/kefir/bootloader/res/ku.bmp", "/bootloader/res/ku.bmp");
-                if (std::filesystem::exists(CFW_FILENAME)) {
+                if (std::filesystem::exists(CFW_FILENAME))
+                {
                     std::filesystem::remove_all(CFW_FILENAME);
                 }
             }
