@@ -22,7 +22,7 @@ DATA			:=	data
 INCLUDES		:=	include lib/zipper/include /lib/borealis/library/include/borealis/extern/nlohmann
 APP_TITLE	:=	Kefir Updater
 APP_AUTHOR	:=	HamletDuFromage, forked by xHR
-APP_VERSION :=  1.0.5
+APP_VERSION :=  1.0.6
 TARGET		:=	$(notdir $(CURDIR))
 
 ROMFS						:=	resources
@@ -50,7 +50,7 @@ CFLAGS	+=	$(INCLUDE) -D__SWITCH__ \
 			-DAPP_TITLE="\"$(APP_TITLE)\"" -DAPP_TITLE_LOWER="\"$(TARGET)\""
 
 
-CXXFLAGS	:= $(CFLAGS) -std=gnu++17 -fexceptions -Wno-reorder
+CXXFLAGS	:= $(CFLAGS) -std=gnu++20 -fexceptions -Wno-reorder
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
@@ -161,8 +161,8 @@ $(ROMFS):
 	@[ -d $@ ] || mkdir -p $@
 	@echo Merging ROMFS...
 	@cp -ruf $(CURDIR)/$(BOREALIS_PATH)/resources/i18n/. $(CURDIR)/$(ROMFS)/i18n/
-	@cp -ruf $(CURDIR)/$(ROMFS)/i18n/zh-CN/. $(CURDIR)/$(ROMFS)/i18n/zh-Hans/
-	@cp -ruf $(CURDIR)/$(ROMFS)/i18n/zh-TW/. $(CURDIR)/$(ROMFS)/i18n/zh-Hant/
+	# @cp -ruf $(CURDIR)/$(ROMFS)/i18n/zh-CN/. $(CURDIR)/$(ROMFS)/i18n/zh-Hans/
+	# @cp -ruf $(CURDIR)/$(ROMFS)/i18n/zh-TW/. $(CURDIR)/$(ROMFS)/i18n/zh-Hant/
 	@rm $(CURDIR)/$(ROMFS)/i18n/*/installer.json $(CURDIR)/$(ROMFS)/i18n/*/main.json $(CURDIR)/$(ROMFS)/i18n/*/popup.json $(CURDIR)/$(ROMFS)/i18n/*/custom_layout.json
 
 $(BUILD): $(ROMFS)
