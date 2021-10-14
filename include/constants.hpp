@@ -87,6 +87,7 @@ constexpr const char SIGPATCHES_ZIP_PATH[] ="/config/kefir-updater/sigpatches.zi
 constexpr const char AMS_DIRECTORY_PATH[] = "/config/kefir-updater/atmosphere/";
 constexpr const char SEPT_DIRECTORY_PATH[] ="/config/kefir-updater/sept/";
 constexpr const char FW_DIRECTORY_PATH[] =  "/firmware/";
+constexpr const char THEME_DIR[] =          "/atmosphere/contents/0100000000001000";
 
 constexpr const char HIDE_TABS_JSON[] =     "/config/kefir-updater/hide_tabs.json";
 constexpr const char COPY_FILES_TXT[] =     "/config/kefir-updater/copy_files.txt";
