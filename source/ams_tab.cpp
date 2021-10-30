@@ -17,6 +17,7 @@ AmsTab::AmsTab(const bool erista, const bool hideStandardEntries) : brls::List()
 {
     this->erista = erista;
     std::filesystem::remove(CFW_ZIP_PATH);
+    std::filesystem::remove(FW_ZIP_PATH);
     download::getRequest(AMS_URL, cfws);
 
     if(!hideStandardEntries) {

@@ -22,7 +22,7 @@ DATA			:=	data
 INCLUDES		:=	include lib/zipper/include /lib/borealis/library/include/borealis/extern/nlohmann
 APP_TITLE	:=	Kefir Updater
 APP_AUTHOR	:=	HamletDuFromage, forked by xHR
-APP_VERSION :=  1.0.8
+APP_VERSION :=  1.0.9
 TARGET		:=	$(notdir $(CURDIR))
 
 ROMFS						:=	resources

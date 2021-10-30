@@ -149,6 +149,8 @@ namespace util
                 std::filesystem::remove_all(FIRMWARE_PATH);
             fs::createTree(FIRMWARE_PATH);
             extract::extract(FIRMWARE_FILENAME, FIRMWARE_PATH);
+            if (std::filesystem::exists(FIRMWARE_FILENAME))
+                std::filesystem::remove(FIRMWARE_FILENAME);
             break;
         case archiveType::app:
             extract::extract(APP_FILENAME, CONFIG_PATH);
