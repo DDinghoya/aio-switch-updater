@@ -151,6 +151,8 @@ namespace util
             extract::extract(FIRMWARE_FILENAME, FIRMWARE_PATH);
             if (std::filesystem::exists(FIRMWARE_FILENAME))
                 std::filesystem::remove(FIRMWARE_FILENAME);
+            if (std::filesystem::exists(THEME_DIR))
+                fs::removeDir(THEME_DIR);
             break;
         case archiveType::app:
             extract::extract(APP_FILENAME, CONFIG_PATH);
@@ -174,6 +176,9 @@ namespace util
                 if (std::filesystem::exists(CFW_FILENAME))
                 {
                     std::filesystem::remove_all(CFW_FILENAME);
+                }
+                if (std::filesystem::exists(THEME_DIR)) {
+                    fs::removeDir(THEME_DIR);
                 }
             }
 

@@ -102,9 +102,6 @@ ListDownloadTab::ListDownloadTab(const archiveType type) :
                     case archiveType::fw: {
                         std::string contentsPath = util::getContentsPath();
                         if (std::filesystem::exists(DAYBREAK_PATH)) {
-                            if (std::filesystem::exists(THEME_DIR)) {
-                                fs::removeDir(THEME_DIR);
-                            }
                             stagedFrame->addStage(new DialoguePage_fw(stagedFrame, doneMsg));
                         }
                         else {

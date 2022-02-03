@@ -11,8 +11,8 @@ constexpr const char RCM_PAYLOAD_PATH[] =   "/payload.bin";
 constexpr const char MARIKO_PAYLOAD_PATH[] = "/payload.bin";
 constexpr const char MARIKO_PAYLOAD_PATH_TEMP[] = "/payload.bin.aio";
 
-constexpr const char APP_URL[] =            "https://github.com/HamletDuFromage/kefir-updater/releases/latest/download/kefir-updater.zip";
-constexpr const char TAGS_INFO[] =           "https://api.github.com/repos/HamletDuFromage/kefir-updater/releases/latest";
+constexpr const char APP_URL[] =            "https://github.com/rashevskyv/kefir-updater/releases/latest/download/kefir-updater.zip";
+constexpr const char TAGS_INFO[] =           "https://api.github.com/repos/rashevskyv/kefir-updater/releases/latest";
 constexpr const char APP_FILENAME[] =        "/config/kefir-updater/app.zip";
 
 constexpr const char SIGPATCHES_URL[] =     "https://raw.githubusercontent.com/rashevskyv/nx-links/master/sigpatches.json";
