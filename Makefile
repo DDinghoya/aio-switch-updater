@@ -22,7 +22,7 @@ DATA			:=	data
 INCLUDES		:=	include lib/zipper/include /lib/borealis/library/include/borealis/extern/nlohmann
 APP_TITLE	:=	Kefir Updater
 APP_AUTHOR	:=	HamletDuFromage, forked by xHR
-APP_VERSION :=  1.1.0
+APP_VERSION :=  1.1.2
 TARGET		:=	$(notdir $(CURDIR))
 
 ROMFS						:=	resources
@@ -171,7 +171,7 @@ $(BUILD): $(ROMFS)
 	@[ -d $@ ] || mkdir -p $@
 	@MSYS2_ARG_CONV_EXCL="-D;$(MSYS2_ARG_CONV_EXCL)" $(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 	@cp $(OUTPUT).nro $(CURDIR)/output/kefir-updater.nro
-	@cp $(CURDIR)/output/kefir-updater.nro /mnt/e/Switch/_kefir/kefir/switch/Kefir-updater/kefir-updater.nro
+	@cp $(CURDIR)/output/kefir-updater.nro /mnt/d/git/dev/_kefir/kefir/switch/Kefir-updater/kefir-updater.nro
 
 #---------------------------------------------------------------------------------
 clean:
@@ -183,11 +183,11 @@ else
 endif
 
 nxlink:
-	nxlink -a 192.168.1.98 -p /kefir-updater/kefir-updater.nro output/kefir-updater.nro
+	nxlink -a 192.168.0.122 -p /kefir-updater/kefir-updater.nro output/kefir-updater.nro
 
 copy:
-	@cp $(CURDIR)/output/kefir-updater.nro /mnt/e/Switch/_kefir/kefir/switch/kefir-updater/kefir-updater.nro
-	@cp $(CURDIR)/../TegraExplorer/output/TegraExplorer_small.bin /mnt/e/Switch/_kefir/kefir/switch/kefir-updater/kefir-updater.bin
+	@cp $(CURDIR)/output/kefir-updater.nro /mnt/d/git/dev/_kefir/kefir/switch/kefir-updater/kefir-updater.nro
+	@cp $(CURDIR)/../TegraExplorer/output/TegraExplorer_small.bin /mnt/d/git/dev/_kefir/kefir/switch/kefir-updater/kefir-updater.bin
 
 #---------------------------------------------------------------------------------
 else
